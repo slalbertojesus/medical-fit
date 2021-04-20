@@ -10,13 +10,14 @@
       min-width="290px"
     >
       <template v-slot:activator="{ on }">
-        <v-text-field
-          label="Fecha de cita *"
-          readonly
-          :value="fromDateDisp"
-          v-on="on"
-          ><v-icon medium dark>event</v-icon></v-text-field
-        >
+        <v-col cols="12" >
+          <v-text-field
+            label="Fecha de cita *"
+            readonly
+            :value="fromDateDisp"
+            v-on="on"
+          ></v-text-field>
+        </v-col>
       </template>
       <v-date-picker
         locale="en-in"
@@ -48,16 +49,22 @@ export default {
     maxDate: "2023-08-30",
   }),
   components: {},
-  methods: {},
+  methods: {
+    formatDate (date) {
+        if (!date) return null
+        const [year, month, day] = date.split('-')
+        return `${day}/${month}/${year}`
+      },
+  },
   props: {
     selectedDate: null,
   },
   computed: {
     fromDateDisp() {
       if (this.fromDateVal == null) {
-        return this.selectedDate;
+        return this.formatDate(this.selectedDate);
       }
-      return this.fromDateVal;
+      return this.formatDate(this.fromDateVal);
     },
   },
 };

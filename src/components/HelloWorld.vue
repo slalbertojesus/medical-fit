@@ -1,36 +1,45 @@
 <template>
+<v-container>
   <v-row class="fill-height">
     <v-col>
-      <v-sheet height="600">
+      <v-sheet height="500">
         <v-calendar
           ref="calendar"
           v-model="focus"
           color="primary"
-          :events="events"
           :event-color="getEventColor"
           :type="type"
           @click:day="displayDialog"
           @change="updateRange"
         >
         </v-calendar>
+        <v-col class="text-right">
+        <v-btn class="mx-2" fab dark right color="red" @click="displayDialog">
+          <v-icon dark>
+            mdi-plus
+          </v-icon>
+        </v-btn>
+        </v-col>
       </v-sheet>
-      <CitasDialogo :selectedDate="selectedDate" :dialog.sync="dialog"/>
+      <CitasDialogo :selectedDate="selectedDate" :dialog.sync="dialog" />
     </v-col>
   </v-row>
+</v-container>
 </template>
+
 
 <script>
 import CitasDialogo from "./CitasDialogo.vue";
 
 export default {
   name: "HelloWord",
-    components: {
-      CitasDialogo
-    },
+  components: {
+    CitasDialogo,
+  },
   data: () => ({
     dialog: false,
     selectedDate: null,
-    day: "", 
+    day: "",
     focus: "",
     type: "month",
     typeToLabel: {
@@ -67,7 +76,7 @@ export default {
     this.$refs.calendar.checkChange();
   },
   methods: {
-    displayDialog({date}) {
+    displayDialog({ date }) {
       this.selectedDate = date;
       this.dialog = true;
     },

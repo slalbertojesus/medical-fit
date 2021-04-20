@@ -3,50 +3,44 @@
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
-          <span class="headline"
-            >Agregar cita
-          </span>
+          <span class="headline">Agregar cita </span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12" sm="6" md="4">
+              <v-col cols="12">
+                <v-text-field label="Paciente *" required></v-text-field>
+              </v-col>
+              <v-col cols="12">
                 <DatePicker :selectedDate="selectedDate" />
               </v-col>
-              <v-col cols="12" sm="6" md="4">
-                <small>* Paciente</small>
-                <v-text-field required></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6" md="4">
+              <v-col cols="12" sm="6" md="6">
                 <TimePicker />
               </v-col>
-              <div v-if="onScreen">
-                <v-col cols="12" sm="6" md="4">
+              <v-col cols="12" sm="6" md="6">
+                <div v-if="onScreen">
                   <v-text-field
                     v-model="dateLen"
                     label="Duración (Minutos}"
-                    hide-details
-                    single-line
                     type="number"
                     @blur="setDateLen"
                   />
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
+                </div>
+              </v-col>
+              <v-col cols="12">
+                <div v-if="dateOnScreen">
                   <v-text-field
                     v-model="enddate"
                     label="Hora de fin de cita"
-                    hide-details
-                    single-line
                     disabled
                   />
-                </v-col>
-              </div>
-              <v-col cols="12" sm="6" md="4">
-                <small>* Comentarios</small>
+                </div>
+              </v-col>
+              <v-col cols="12">
                 <v-textarea
                   background-color="white"
-                  color="black"
-                  columns="12"
+                  label="Comentarios *"
+                  counter="600"
                 ></v-textarea>
               </v-col>
             </v-row>
@@ -83,13 +77,14 @@ export default {
       this.timeSelected = timeSelected;
       this.dateLen = "";
       this.enddate = "";
-      this.onScreen = true; 
+      this.onScreen = true;
     });
   },
   data: () => ({
-    onScreen: false, 
+    onScreen: false,
     enddate: null,
     timeSelected: null,
+    dateOnScreen: false,
     dateLen: null,
     dateEnd: null,
     today: "",
@@ -110,18 +105,21 @@ export default {
   methods: {
     close() {
       this.$emit("update:dialog", false);
+      this.resetVariables();
     },
     setDateLen() {
       if (this.dateLen < 0) {
-        this.dateLen = "";
-        this.enddate = "";
+        this.resetVariables();
       } else {
         var target = moment(this.timeSelected, "h:mm");
         target = target.add(this.dateLen, "m");
         this.enddate = target.format("h:mm");
+        this.dateOnScreen = true;
       }
     },
     resetVariables() {
+      this.onScreen = false;
+      this.enddate = "";
       this.dateLen = "";
       EventBus.$emit("resetVariable");
     },

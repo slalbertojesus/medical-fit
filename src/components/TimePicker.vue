@@ -10,14 +10,16 @@
       min-width="290px"
     >
       <template v-slot:activator="{ on }">
-        <v-text-field
-          v-model="timeField"
-          label="Hora de cita *"
-          readonly
-          v-on="on"
-          @click="onScreen = true"
-          ><v-icon medium dark>event</v-icon></v-text-field
-        >
+        <v-col >
+          <v-text-field
+            v-model="timeField"
+            label="Hora de inicio *"
+            readonly
+            v-on="on"
+            @click="onScreen = true"
+          >
+          </v-text-field>
+        </v-col>
       </template>
       <div v-if="onScreen">
         <v-time-picker
@@ -63,6 +65,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
