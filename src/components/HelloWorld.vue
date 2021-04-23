@@ -1,144 +1,114 @@
 <template>
-<v-container>
-  <v-row class="fill-height">
-    <v-col>
-      <v-sheet height="500">
-        <v-calendar
-          ref="calendar"
-          v-model="focus"
-          color="primary"
-          :event-color="getEventColor"
-          :type="type"
-          @click:day="displayDialog"
-          @change="updateRange"
-        >
-        </v-calendar>
-        <v-col class="text-right">
-        <v-btn class="mx-2" fab dark right color="red" @click="displayDialog">
-          <v-icon dark>
-            mdi-plus
-          </v-icon>
-        </v-btn>
-        </v-col>
-      </v-sheet>
-      <CitasDialogo :selectedDate="selectedDate" :dialog.sync="dialog" />
-    </v-col>
-  </v-row>
-</v-container>
+  <v-container>
+    <v-row class="fill-height">
+      <v-col>
+        <v-sheet height="500">
+          <v-calendar
+            v-model="focus"
+            :now="today"
+            :value="today"
+            color="primary"
+            @click:date="displayDialog"
+          >
+            <template v-slot:day="{ date }">
+              <v-sheet
+                class="ma-4"
+                v-model="citas"
+                v-for="cita in calendario[date]"
+                :key="cita.Nombre"
+                :title="category[0]"
+                color="primary"
+                rounded
+                height="16"
+              >
+                <div class="chip-calendar">
+                  <v-row align="center" justify="center">
+                    <small class="white--text justify-center">
+                      {{ cita.Nombre }}
+                    </small>
+                    <v-icon small class="mx-1" color="white">
+                      mdi-calendar
+                    </v-icon>
+                  </v-row>
+                </div>
+              </v-sheet>
+            </template>
+          </v-calendar>
+          <v-col class="text-right">
+            <v-btn
+              class="mx-2"
+              fab
+              dark
+              right
+              color="red"
+              @click="displayDialog"
+            >
+              <v-icon dark>
+                mdi-plus
+              </v-icon>
+            </v-btn>
+          </v-col>
+        </v-sheet>
+        <CitasDialogo :selectedDate="selectedDate" :dialog.sync="dialog" />
+      </v-col>
+      <CitasDia />
+    </v-row>
+  </v-container>
 </template>
-
 
 <script>
 import CitasDialogo from "./CitasDialogo.vue";
+import CitasDia from "./Citas.vue";
 
 export default {
   name: "HelloWord",
   components: {
     CitasDialogo,
+    CitasDia,
   },
   data: () => ({
     dialog: false,
+    citas: null,
     selectedDate: null,
+    createEvent: null,
+    today: new Date().toISOString().slice(0, 10),
+    calendario: {
+      "2021-04-09": [
+        { Nombre: "Alberto de Jesús", Problema: "Dolor de gargante" },
+        { Nombre: "Marta Karina", Problema: "Chequeo general" },
+        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
+        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
+        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
+      ],
+      "2021-04-10": [
+        { Nombre: "Alberto de Jesús", Problema: "Dolor de gargante" },
+        { Nombre: "Marta Karina", Problema: "Chequeo general" },
+        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
+        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
+      ],
+      "2021-04-11": [
+        { Nombre: "Alberto de Jesús", Problema: "Dolor de gargante" },
+        { Nombre: "Marta Karina", Problema: "Chequeo general" },
+        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
+        { Nombre: "Marta Karina", Problema: "Chequeo general" },
+        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
+        { Nombre: "Marta Karina", Problema: "Chequeo general" },
+        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
+      ],
+    },
+    colors: ["#1867c0"],
+    category: ["Citas"],
     day: "",
     focus: "",
-    type: "month",
-    typeToLabel: {
-      month: "Month",
-      week: "Week",
-      day: "Day",
-      "4day": "4 Days",
-    },
-    selectedEvent: {},
-    selectedElement: null,
-    selectedOpen: false,
-    events: [],
-    colors: [
-      "blue",
-      "indigo",
-      "deep-purple",
-      "cyan",
-      "green",
-      "orange",
-      "grey darken-1",
-    ],
-    names: [
-      "Meeting",
-      "Holiday",
-      "PTO",
-      "Travel",
-      "Event",
-      "Birthday",
-      "Conference",
-      "Party",
-    ],
   }),
-  mounted() {
-    this.$refs.calendar.checkChange();
-  },
+  mounted() {},
   methods: {
     displayDialog({ date }) {
       this.selectedDate = date;
       this.dialog = true;
     },
-    getEventColor(event) {
-      return event.color;
-    },
-    setToday() {
-      this.focus = "";
-    },
-    prev() {
-      this.$refs.calendar.prev();
-    },
-    next() {
-      this.$refs.calendar.next();
-    },
-    showEvent({ nativeEvent, event }) {
-      const open = () => {
-        this.selectedEvent = event;
-        this.selectedElement = nativeEvent.target;
-        setTimeout(() => {
-          this.selectedOpen = true;
-        }, 10);
-      };
-
-      if (this.selectedOpen) {
-        this.selectedOpen = false;
-        setTimeout(open, 10);
-      } else {
-        open();
-      }
-
-      nativeEvent.stopPropagation();
-    },
-    updateRange({ start, end }) {
-      const events = [];
-
-      const min = new Date(`${start.date}T00:00:00`);
-      const max = new Date(`${end.date}T23:59:59`);
-      const days = (max.getTime() - min.getTime()) / 86400000;
-      const eventCount = this.rnd(days, days + 20);
-
-      for (let i = 0; i < eventCount; i++) {
-        const allDay = this.rnd(0, 3) === 0;
-        const firstTimestamp = this.rnd(min.getTime(), max.getTime());
-        const first = new Date(firstTimestamp - (firstTimestamp % 900000));
-        const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000;
-        const second = new Date(first.getTime() + secondTimestamp);
-
-        events.push({
-          name: this.names[this.rnd(0, this.names.length - 1)],
-          start: first,
-          end: second,
-          color: this.colors[this.rnd(0, this.colors.length - 1)],
-          timed: !allDay,
-        });
-      }
-
-      this.events = events;
-    },
-    rnd(a, b) {
-      return Math.floor((b - a + 1) * Math.random()) + a;
-    },
   },
 };
 </script>
+
+<style scoped></style>

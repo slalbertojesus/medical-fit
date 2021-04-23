@@ -10,11 +10,12 @@
       min-width="290px"
     >
       <template v-slot:activator="{ on }">
-        <v-col >
+        <v-col>
           <v-text-field
             v-model="timeField"
             label="Hora de inicio *"
             readonly
+            :rules="timeFieldRules"
             v-on="on"
             @click="onScreen = true"
           >
@@ -52,6 +53,9 @@ export default {
     timeSelected: null,
     fromHourDisp: null,
     fromDateMenu: false,
+    timeFieldRules: [
+      v => !!v || 'Debe ingresar la hora de inicio',
+    ],
   }),
   components: {},
   props: {},

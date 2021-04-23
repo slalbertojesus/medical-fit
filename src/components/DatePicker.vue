@@ -13,6 +13,8 @@
         <v-col cols="12" >
           <v-text-field
             label="Fecha de cita *"
+            :rules="dateRules"
+            validate-on-blur
             readonly
             :value="fromDateDisp"
             v-on="on"
@@ -45,6 +47,9 @@ export default {
     on: undefined,
     fromDateMenu: false,
     fromDateVal: null,
+    dateRules: [
+      v => !!v || 'Debe ingresar la fecha de cita',
+    ],
     minDate: "2019-07-04",
     maxDate: "2023-08-30",
   }),
