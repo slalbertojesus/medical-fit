@@ -1,42 +1,52 @@
 <template>
   <v-container>
     <v-row no-gutters>
-      <v-header>{{ dateSelected }}</v-header>
+      <v-header v-model="header">{{ selectedDate }}</v-header>
       <v-subheader>Citas del día</v-subheader>
-      <v-list-item class="align-left justify-center" v-for="chat in recent" :key="chat.title">
-            <subtitle-1 v-text="chat.hora"></subtitle-1>
-            <v-card rounded class="ma-2" color="primary">
-              <v-card-actions>
-                <v-list-item>
-                  <v-list-item-avatar>
-                    <v-img
-                      :alt="`${chat.title} avatar`"
-                      :src="chat.avatar"
-                    ></v-img>
-                  </v-list-item-avatar>
-                  <v-list-item-title class="mr-1 white--text">{{
-                    chat.title
-                  }}</v-list-item-title>
-                  <v-icon color="white" class="mr-1">
-                    mdi-pencil
-                  </v-icon>
-                  <v-icon color="white" class="mr-1">
-                    mdi-history
-                  </v-icon>
-                  <v-icon color="white" class="mr-1">
-                    mdi-trash-can-outline
-                  </v-icon>
-                </v-list-item>
-              </v-card-actions>
-            </v-card>
+      <v-list-item
+        class="align-left justify-center"
+        v-for="chat in recent"
+        :key="chat.title"
+      >
+        <subtitle-1 v-text="chat.hora"></subtitle-1>
+        <v-card rounded class="ma-1" color="primary">
+          <v-card-actions>
+            <v-list-item>
+              <v-list-item-avatar>
+                <v-img :alt="`${chat.title} avatar`" :src="chat.avatar"></v-img>
+              </v-list-item-avatar>
+              <v-list-item-title class="mr-1 white--text">{{
+                chat.title
+              }}</v-list-item-title>
+              <v-icon color="white" class="mr-1">
+                mdi-pencil
+              </v-icon>
+              <v-icon color="white" class="mr-1">
+                mdi-history
+              </v-icon>
+              <v-icon color="white" class="mr-1">
+                mdi-trash-can-outline
+              </v-icon>
+            </v-list-item>
+          </v-card-actions>
+        </v-card>
       </v-list-item>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import { EventBus } from "../event-bus";
+
 export default {
+  mounted() {
+    EventBus.$on("getCitas", (selectedDate) => {
+      this.selectedDate= selectedDate;
+      this.header= selectedDate;
+    });
+  },
   data: () => ({
+    selectedDate: null,
     citas: [
       {
         avatar_paciente: "https://cdn.vuetifyjs.com/images/lists/1.jpg",

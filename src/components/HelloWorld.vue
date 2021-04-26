@@ -9,6 +9,7 @@
             :value="today"
             color="primary"
             @click:date="displayDialog"
+            @click:day="displayCitas"
           >
             <template v-slot:day="{ date }">
               <v-sheet
@@ -59,6 +60,7 @@
 <script>
 import CitasDialogo from "./CitasDialogo.vue";
 import CitasDia from "./Citas.vue";
+import { EventBus } from "../event-bus";
 
 export default {
   name: "HelloWord",
@@ -106,6 +108,11 @@ export default {
     displayDialog({ date }) {
       this.selectedDate = date;
       this.dialog = true;
+    },
+    displayCitas({ date }) {
+      this.selectedDate = date;
+      EventBus.$emit("getCitas", this.selectedDate)
+      alert(date)
     },
   },
 };
