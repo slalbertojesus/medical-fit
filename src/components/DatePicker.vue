@@ -10,7 +10,7 @@
       min-width="290px"
     >
       <template v-slot:activator="{ on }">
-        <v-col cols="12" >
+        <v-col cols="12">
           <v-text-field
             label="Fecha de cita *"
             :rules="dateRules"
@@ -47,19 +47,17 @@ export default {
     on: undefined,
     fromDateMenu: false,
     fromDateVal: null,
-    dateRules: [
-      v => !!v || 'Debe ingresar la fecha de cita',
-    ],
+    dateRules: [(v) => !!v || "Debe ingresar la fecha de cita"],
     minDate: "2019-07-04",
     maxDate: "2023-08-30",
   }),
   components: {},
   methods: {
-    formatDate (date) {
-        if (!date) return null
-        const [year, month, day] = date.split('-')
-        return `${day}/${month}/${year}`
-      },
+    formatDate(date) {
+      if (!date) return null;
+      const [year, month, day] = date.split("-");
+      return `${day}/${month}/${year}`;
+    },
   },
   props: {
     selectedDate: null,

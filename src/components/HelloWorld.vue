@@ -52,6 +52,8 @@
         </v-sheet>
         <CitasDialogo :selectedDate="selectedDate" :dialog.sync="dialog" />
       </v-col>
+    </v-row>
+    <v-row>
       <CitasDia />
     </v-row>
   </v-container>
@@ -115,6 +117,7 @@ export default {
       alert(date)
     },
   },
+
 };
 </script>
 
