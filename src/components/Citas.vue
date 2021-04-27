@@ -1,25 +1,12 @@
 <template>
   <v-container>
-    <h3>{{currentDateTime()}}</h3>
-    <v-row v-if="this.citas != 0">
-    <h2 >Citas del día</h2>
-    </v-row>
     <v-row no-gutters>
-      <v-row justify="center" v-if="this.citas == 0">
-        <v-btn x-large outlined color="success" dark>
-          Agregar una cita nueva   
-          <v-icon>
-            mdi-calendar-plus
-          </v-icon>
-        </v-btn>
-      </v-row>
       <v-list-item
         class="justify-center"
         v-for="chat in citas"
         :key="chat.title"
-        v-else
       >
-        <v-row class="mx-7 ma-2" no-gutters>
+        <v-row class="mx-4 ma-2" no-gutters>
           <v-col cols="3" md="2">
             <subtitle-1>{{ chat.hora }}</subtitle-1>
           </v-col>
@@ -32,7 +19,7 @@
                     :src="chat.avatar"
                   ></v-img>
                 </v-list-item-avatar>
-                <v-list-item-title class="mr-1 white--text">{{
+                <v-list-item-title class="white--text">{{
                   chat.title
                 }}</v-list-item-title>
                 <v-tooltip bottom>
@@ -79,18 +66,35 @@ export default {
     });
   },
   methods: {
-   currentDateTime() {
-      const current = new Date();
-      const mes = current.toLocaleString('es-MX', { month: 'long' });
-      const day = current.getDay();
-      const año = current.getFullYear();
-      const fecha = day + ' de ' + mes + ' del ' + año;
-      return fecha;
-    }
   },
   data: () => ({
     selectedDate: null,
-    citas: [],
+    citas: [
+       {
+        fecha: "2021-04-09",
+        avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+        title: "Miguel Hernández",
+        hora: "10:00 AM",
+      },
+      {
+        fecha: "2021-04-10",
+        avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
+        title: "Gibrán Posiot",
+        hora: "11:00 AM",
+      },
+      {
+        fecha: "2021-04-10",
+        avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+        title: "Monica Rivera",
+        hora: "2:00 PM",
+      },
+      {
+        fecha: "2021-04-11",
+        avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
+        title: "Scarlet Calderón",
+        hora: "3:00 PM",
+      },
+    ],
   }),
 };
 </script>

@@ -35,26 +35,35 @@
               </v-sheet>
             </template>
           </v-calendar>
-          <v-col class="text-right">
-            <v-btn
-              class="mx-2"
-              fab
-              dark
-              right
-              color="red"
-              @click="displayDialog"
-            >
-              <v-icon dark>
-                mdi-plus
-              </v-icon>
-            </v-btn>
-          </v-col>
+          <v-row>
+            <v-col>
+              <h3>{{ currentDateTime() }}</h3>
+            </v-col>
+            <v-col md="1">
+              <v-btn fab right dark color="red" @click="displayDialog">
+                <v-icon dark>
+                  mdi-plus
+                </v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col v-if="this.citasLista!= 0">
+              <h4 class="justify-center">Citas del día</h4>
+              <CitasDia />
+            </v-col>
+            <v-row justify="center" v-else>
+              <v-btn x-large outlined color="success" dark>
+                Agregar una cita nueva
+                <v-icon>
+                  mdi-calendar-plus
+                </v-icon>
+              </v-btn>
+            </v-row>
+          </v-row>
         </v-sheet>
         <CitasDialogo :selectedDate="selectedDate" :dialog.sync="dialog" />
       </v-col>
-    </v-row>
-    <v-row>
-      <CitasDia />
     </v-row>
   </v-container>
 </template>
@@ -75,7 +84,32 @@ export default {
     citas: null,
     selectedDate: null,
     createEvent: null,
-    today: new Date().toISOString().slice(0, 10),
+    citasLista: [
+       {
+        fecha: "2021-04-09",
+        avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+        title: "Miguel Hernández",
+        hora: "10:00 AM",
+      },
+      {
+        fecha: "2021-04-10",
+        avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
+        title: "Gibrán Posiot",
+        hora: "11:00 AM",
+      },
+      {
+        fecha: "2021-04-10",
+        avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+        title: "Monica Rivera",
+        hora: "2:00 PM",
+      },
+      {
+        fecha: "2021-04-11",
+        avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
+        title: "Scarlet Calderón",
+        hora: "3:00 PM",
+      },
+    ],
     calendario: {
       "2021-04-09": [
         { Nombre: "Alberto de Jesús", Problema: "Dolor de gargante" },
@@ -107,17 +141,24 @@ export default {
   }),
   mounted() {},
   methods: {
+    currentDateTime() {
+      const current = new Date();
+      const mes = current.toLocaleString("es-MX", { month: "long" });
+      const day = current.getDay();
+      const año = current.getFullYear();
+      const fecha = day + " de " + mes + " del " + año;
+      return fecha;
+    },
     displayDialog({ date }) {
       this.selectedDate = date;
       this.dialog = true;
     },
     displayCitas({ date }) {
       this.selectedDate = date;
-      EventBus.$emit("getCitas", this.selectedDate)
-      alert(date)
+      EventBus.$emit("getCitas", this.selectedDate);
+      alert(date);
     },
   },
-
 };
 </script>
 
