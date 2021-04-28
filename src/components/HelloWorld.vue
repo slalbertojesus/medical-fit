@@ -156,9 +156,11 @@ export default {
     colors: ["#1867c0"],
     category: ["Citas"],
     day: "",
+    today:  new Date().toISOString().substr(0, 10),
     focus: "",
   }),
   mounted() {
+    this.selectedDate = this.today;
     this.calendarDate = this.currentDateTime(); 
     EventBus.$emit("getCitas", this.selectedDate);
   },
@@ -179,6 +181,8 @@ export default {
       return fecha;
     },
     currentSelectedDate({date}){
+      this.selectedDate = date;
+      EventBus.$emit("getCitas", this.selectedDate);
       this.calendarDate = this.convertDate(date);
     },
     currentDateTime() {
@@ -188,11 +192,6 @@ export default {
     displayDialog({ date }) {
       this.selectedDate = date;
       this.dialog = true;
-    },
-    displayCitas({ date }) {
-      this.selectedDate = date;
-      EventBus.$emit("getCitas", this.selectedDate);
-      alert(date);
     },
   },
 };

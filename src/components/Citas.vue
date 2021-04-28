@@ -1,5 +1,8 @@
 <template>
   <v-container>
+    <small>
+      {{selectedDate}}
+    </small>
     <v-row no-gutters>
       <v-list-item
         class="justify-center"
@@ -62,7 +65,6 @@ export default {
   mounted() {
     EventBus.$on("getCitas", (selectedDate) => {
       this.selectedDate = selectedDate;
-      this.header = selectedDate;
     });
   },
   methods: {
