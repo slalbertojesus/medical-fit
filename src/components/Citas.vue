@@ -8,7 +8,7 @@
       >
         <v-row class="mx-4 ma-2" no-gutters>
           <v-col cols="3" md="2">
-            <subtitle-1>{{ chat.hora }}</subtitle-1>
+            <small>{{ chat.hora }}</small>
           </v-col>
           <v-col cols="12" sm="6" md="8">
             <v-card ripple color="primary">

@@ -5,34 +5,40 @@
         <v-sheet height="500">
           <v-calendar
             v-model="focus"
-            :now="today"
-            :value="today"
             color="primary"
             @click:date="displayDialog"
-            @click:day="displayCitas"
+            @click:day="currentSelectedDate"
           >
-            <template v-slot:day="{ date }"
-             v-if="calendario.length > 1">
-              <v-chip
-                v-model="citas"
-                v-for="cita in calendario[date]"
-                :key="cita.Nombre"
-                :title="category[0]"
-                color="primary"
-                rounded
-              >
-                <small class="white--text justify-center">
-                  {{ cita.Nombre }}
-                </small>
-                <v-icon small class="mx-1" color="white">
-                  mdi-calendar
-                </v-icon>
-              </v-chip>
+            <template v-slot:day="{ date }">
+              <div v-for="(cita, index) in calendario[date]" :key="cita.Nombre">
+                <v-chip
+                  id="chip"
+                  v-if="index < 2"
+                  v-model="citas"
+                  :title="category[0]"
+                  color="primary"
+                  rounded
+                >
+                  <div v-if="index == 0">
+                    <small class="white--text justify-center">
+                      {{ cita.Nombre }}
+                    </small>
+                    <v-icon small class="mx-1" color="white">
+                      mdi-calendar
+                    </v-icon>
+                  </div>
+                  <div v-else-if="index == 1">
+                    <small class="white--text justify-center">
+                      {{ arrayNumber(date) }} citas más
+                    </small>
+                  </div>
+                </v-chip>
+              </div>
             </template>
           </v-calendar>
           <v-row>
             <v-col>
-              <h3 class="mt-3">{{ currentDateTime() }}</h3>
+              <h3 class="mt-3">{{ calendarDate }}</h3>
             </v-col>
             <v-col class="text-right">
               <v-btn
@@ -63,7 +69,7 @@
                 dark
                 @click="displayDialog"
               >
-                Agregar una cita nueva
+                 No existen citas registradas el día de hoy, agrega una cita nueva!
                 <v-icon class="mx-2">
                   mdi-calendar-plus
                 </v-icon>
@@ -91,10 +97,39 @@ export default {
   data: () => ({
     dialog: false,
     citas: null,
+    calendarDate: null, 
     selectedDate: null,
     createEvent: null,
-    citasLista: [],
+    citasLista: [
+      {
+        fecha: "2021-04-09",
+        avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+        title: "Miguel Hernández",
+        hora: "10:00 AM",
+      },
+      {
+        fecha: "2021-04-10",
+        avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
+        title: "Gibrán Posiot",
+        hora: "11:00 AM",
+      },
+      {
+        fecha: "2021-04-10",
+        avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+        title: "Monica Rivera",
+        hora: "2:00 PM",
+      },
+      {
+        fecha: "2021-04-11",
+        avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
+        title: "Scarlet Calderón",
+        hora: "3:00 PM",
+      },
+    ],
     calendario: {
+      "2021-04-03": [
+        { Nombre: "Alberto de Jesús", Problema: "Dolor de gargante" },
+      ],
       "2021-04-09": [
         { Nombre: "Alberto de Jesús", Problema: "Dolor de gargante" },
         { Nombre: "Marta Karina", Problema: "Chequeo general" },
@@ -123,14 +158,31 @@ export default {
     day: "",
     focus: "",
   }),
-  mounted() {},
+  mounted() {
+    this.calendarDate = this.currentDateTime(); 
+    EventBus.$emit("getCitas", this.selectedDate);
+  },
   methods: {
-    currentDateTime() {
-      const current = new Date();
+    arrayNumber(date) {
+      return this.calendario[date].length - 1;
+    },
+    convertDate(date){
+      var current = new Date();
+      if (date != null){
+      date = date + "T00:00:00";
+      current = new Date(date);
+      }
+      const day = current.getDate();
       const mes = current.toLocaleString("es-MX", { month: "long" });
-      const day = current.getDay();
       const año = current.getFullYear();
       const fecha = day + " de " + mes + " del " + año;
+      return fecha;
+    },
+    currentSelectedDate({date}){
+      this.calendarDate = this.convertDate(date);
+    },
+    currentDateTime() {
+      const fecha = this.convertDate();
       return fecha;
     },
     displayDialog({ date }) {
@@ -146,4 +198,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+#chip {
+  height: 20px;
+}
+</style>
