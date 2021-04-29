@@ -69,7 +69,8 @@
                 dark
                 @click="displayDialog"
               >
-                 No existen citas registradas el día de hoy, agrega una cita nueva!
+                No existen citas registradas el día de hoy, agrega una cita
+                nueva!
                 <v-icon class="mx-2">
                   mdi-calendar-plus
                 </v-icon>
@@ -96,16 +97,18 @@ export default {
   },
   data: () => ({
     dialog: false,
+    index: null, 
     citas: null,
-    calendarDate: null, 
+    calendarDate: null,
     selectedDate: null,
     createEvent: null,
     citasLista: [
       {
+        Nombre: "Alberto de Jesús",
         fecha: "2021-04-09",
         avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-        title: "Miguel Hernández",
         hora: "10:00 AM",
+        Problema: "Dolor de gargante",
       },
       {
         fecha: "2021-04-10",
@@ -127,52 +130,77 @@ export default {
       },
     ],
     calendario: {
-      "2021-04-03": [
-        { Nombre: "Alberto de Jesús", Problema: "Dolor de gargante" },
+      "2021-04-04": [
+        {
+          Nombre: "Gibran Posiot",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
+          hora: "11:00 AM",
+          Problema: "Dolor de gargante",
+        },
+        {
+          Nombre: "Gibran Posiot",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
+          hora: "11:00 AM",
+          Problema: "Dolor de gargante",
+        },
       ],
       "2021-04-09": [
-        { Nombre: "Alberto de Jesús", Problema: "Dolor de gargante" },
-        { Nombre: "Marta Karina", Problema: "Chequeo general" },
-        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
-        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
-        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
+        {
+          Nombre: "Alberto de Jesús",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+          hora: "10:00 AM",
+          Problema: "Dolor de gargante",
+        },
+        {
+          Nombre: "Monica Rivera",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          hora: "2:00 PM",
+          Problema: "Dolor de gargante",
+        },
       ],
       "2021-04-10": [
-        { Nombre: "Alberto de Jesús", Problema: "Dolor de gargante" },
-        { Nombre: "Marta Karina", Problema: "Chequeo general" },
-        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
-        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
+        {
+          Nombre: "Berenice Reyes",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          hora: "2:00 PM",
+          Problema: "Dolor de gargante",
+        },
       ],
       "2021-04-11": [
-        { Nombre: "Alberto de Jesús", Problema: "Dolor de gargante" },
-        { Nombre: "Marta Karina", Problema: "Chequeo general" },
-        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
-        { Nombre: "Marta Karina", Problema: "Chequeo general" },
-        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
-        { Nombre: "Marta Karina", Problema: "Chequeo general" },
-        { Nombre: "Berenice Reyes", Problema: "Chequeo general" },
+        {
+          Nombre: "Berenice Reyes",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          hora: "2:00 PM",
+          Problema: "Dolor de gargante",
+        },
+        {
+          Nombre: "Berenice Reyes",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          hora: "2:00 PM",
+          Problema: "Dolor de gargante",
+        },
       ],
     },
     colors: ["#1867c0"],
     category: ["Citas"],
     day: "",
-    today:  new Date().toISOString().substr(0, 10),
+    today: new Date().toISOString().substr(0, 10),
     focus: "",
   }),
   mounted() {
     this.selectedDate = this.today;
-    this.calendarDate = this.currentDateTime(); 
+    this.calendarDate = this.currentDateTime();
     EventBus.$emit("getCitas", this.selectedDate);
   },
   methods: {
     arrayNumber(date) {
       return this.calendario[date].length - 1;
     },
-    convertDate(date){
+    convertDate(date) {
       var current = new Date();
-      if (date != null){
-      date = date + "T00:00:00";
-      current = new Date(date);
+      if (date != null) {
+        date = date + "T00:00:00";
+        current = new Date(date);
       }
       const day = current.getDate();
       const mes = current.toLocaleString("es-MX", { month: "long" });
@@ -180,7 +208,7 @@ export default {
       const fecha = day + " de " + mes + " del " + año;
       return fecha;
     },
-    currentSelectedDate({date}){
+    currentSelectedDate({ date }) {
       this.selectedDate = date;
       EventBus.$emit("getCitas", this.selectedDate);
       this.calendarDate = this.convertDate(date);
