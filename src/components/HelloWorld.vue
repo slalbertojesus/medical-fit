@@ -42,7 +42,7 @@
             </v-col>
             <v-col class="text-right">
               <v-btn
-                v-if="this.citasLista != 0"
+                v-if="this.calendario[selectedDate] != null"
                 fab
                 right
                 dark
@@ -57,7 +57,7 @@
           </v-row>
           <v-spacer></v-spacer>
           <v-row>
-            <v-col v-if="this.citasLista != 0">
+            <v-col v-if="calendario[selectedDate] != null">
               <h4 class="justify-center">Citas del día</h4>
               <CitasDia />
             </v-col>
@@ -69,7 +69,7 @@
                 dark
                 @click="displayDialog"
               >
-                No existen citas registradas el día de hoy, agrega una cita
+                Agrega una cita
                 nueva!
                 <v-icon class="mx-2">
                   mdi-calendar-plus
@@ -102,33 +102,6 @@ export default {
     calendarDate: null,
     selectedDate: null,
     createEvent: null,
-    citasLista: [
-      {
-        Nombre: "Alberto de Jesús",
-        fecha: "2021-04-09",
-        avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-        hora: "10:00 AM",
-        Problema: "Dolor de gargante",
-      },
-      {
-        fecha: "2021-04-10",
-        avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-        title: "Gibrán Posiot",
-        hora: "11:00 AM",
-      },
-      {
-        fecha: "2021-04-10",
-        avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-        title: "Monica Rivera",
-        hora: "2:00 PM",
-      },
-      {
-        fecha: "2021-04-11",
-        avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-        title: "Scarlet Calderón",
-        hora: "3:00 PM",
-      },
-    ],
     calendario: {
       "2021-04-04": [
         {
