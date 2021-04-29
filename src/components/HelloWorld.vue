@@ -6,6 +6,7 @@
           <v-calendar
             v-model="focus"
             color="primary"
+            :now='daySelected'
             @click:date="displayDialog"
             @click:day="currentSelectedDate"
           >
@@ -98,6 +99,7 @@ export default {
   data: () => ({
     dialog: false,
     index: null, 
+    daySelected: null,
     citas: null,
     calendarDate: null,
     selectedDate: null,
@@ -182,11 +184,13 @@ export default {
       return fecha;
     },
     currentSelectedDate({ date }) {
+      this.daySelected = date;
       this.selectedDate = date;
-      EventBus.$emit("getCitas", this.selectedDate);
+      EventBus.$emit("getCitas", this.calendario[date]);
       this.calendarDate = this.convertDate(date);
     },
     currentDateTime() {
+      EventBus.$emit("getCitas", this.calendario[this.selectedDate]);
       const fecha = this.convertDate();
       return fecha;
     },

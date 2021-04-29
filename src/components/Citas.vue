@@ -18,12 +18,12 @@
               <v-list-item>
                 <v-list-item-avatar>
                   <v-img
-                    :alt="`${chat.title} avatar`"
+                    :alt="`${chat.Nombre} avatar`"
                     :src="chat.avatar"
                   ></v-img>
                 </v-list-item-avatar>
                 <v-list-item-title class="white--text">{{
-                  chat.title
+                  chat.Nombre
                 }}</v-list-item-title>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
@@ -64,7 +64,7 @@ import { EventBus } from "../event-bus";
 export default {
   mounted() {
     EventBus.$on("getCitas", (selectedDate) => {
-      this.selectedDate = selectedDate;
+      this.citas = selectedDate;
     });
   },
   methods: {
@@ -72,30 +72,6 @@ export default {
   data: () => ({
     selectedDate: null,
     citas: [
-       {
-        fecha: "2021-04-09",
-        avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-        title: "Miguel Hernández",
-        hora: "10:00 AM",
-      },
-      {
-        fecha: "2021-04-10",
-        avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-        title: "Gibrán Posiot",
-        hora: "11:00 AM",
-      },
-      {
-        fecha: "2021-04-10",
-        avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-        title: "Monica Rivera",
-        hora: "2:00 PM",
-      },
-      {
-        fecha: "2021-04-11",
-        avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-        title: "Scarlet Calderón",
-        hora: "3:00 PM",
-      },
     ],
   }),
 };
