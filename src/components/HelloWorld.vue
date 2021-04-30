@@ -60,7 +60,7 @@
           <v-row>
             <v-col v-if="calendario[selectedDate] != null">
               <h4 class="justify-center">Citas del día</h4>
-              <CitasDia />
+              <CitasDia :citas="calendario[selectedDate]" />
             </v-col>
             <v-row class="mt-2" justify="center" v-else>
               <v-btn
@@ -88,7 +88,6 @@
 <script>
 import CitasDialogo from "./CitasDialogo.vue";
 import CitasDia from "./Citas.vue";
-import { EventBus } from "../event-bus";
 
 export default {
   name: "HelloWord",
@@ -155,6 +154,34 @@ export default {
           Problema: "Dolor de gargante",
         },
       ],
+      "2021-04-29": [
+        {
+          Nombre: "Berenice Reyes",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          hora: "2:00 PM",
+          Problema: "Dolor de gargante",
+        },
+        {
+          Nombre: "Berenice Reyes",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          hora: "2:00 PM",
+          Problema: "Dolor de gargante",
+        },
+      ],
+      "2021-04-30": [
+        {
+          Nombre: "Berenice Reyes",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          hora: "2:00 PM",
+          Problema: "Dolor de gargante",
+        },
+        {
+          Nombre: "Berenice Reyes",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          hora: "2:00 PM",
+          Problema: "Dolor de gargante",
+        },
+      ]
     },
     colors: ["#1867c0"],
     category: ["Citas"],
@@ -164,8 +191,7 @@ export default {
   }),
   mounted() {
     this.selectedDate = this.today;
-    this.calendarDate = this.currentDateTime();
-    EventBus.$emit("getCitas", this.selectedDate);
+    this.calendarDate = this.currentDate();
   },
   methods: {
     arrayNumber(date) {
@@ -186,11 +212,9 @@ export default {
     currentSelectedDate({ date }) {
       this.daySelected = date;
       this.selectedDate = date;
-      EventBus.$emit("getCitas", this.calendario[date]);
       this.calendarDate = this.convertDate(date);
     },
-    currentDateTime() {
-      EventBus.$emit("getCitas", this.calendario[this.selectedDate]);
+    currentDate() {
       const fecha = this.convertDate();
       return fecha;
     },

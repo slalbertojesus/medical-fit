@@ -1,8 +1,5 @@
 <template>
   <v-container>
-    <small>
-      {{selectedDate}}
-    </small>
     <v-row no-gutters>
       <v-list-item
         class="justify-center"
@@ -65,14 +62,20 @@ export default {
   mounted() {
     EventBus.$on("getCitas", (selectedDate) => {
       this.citas = selectedDate;
+      alert("llegó aquí");
     });
+  },
+  props: {
+    citas: {
+      type: Array[String],
+      required: true, 
+      default: [],
+    }
   },
   methods: {
   },
   data: () => ({
     selectedDate: null,
-    citas: [
-    ],
   }),
 };
 </script>
