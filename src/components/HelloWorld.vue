@@ -2,11 +2,40 @@
   <v-container>
     <v-row class="fill-height">
       <v-col>
-        <v-sheet height="500">
+        <v-sheet height="64">
+          <v-toolbar flat>
+            <v-btn fab text small color="grey darken-2" @click="prev">
+              <v-icon small>
+                mdi-chevron-left
+              </v-icon>
+            </v-btn>
+            <v-btn fab text small color="grey darken-2" @click="next">
+              <v-icon small>
+                mdi-chevron-right
+              </v-icon>
+            </v-btn>
+            <v-toolbar-title v-if="$refs.calendar">
+              {{ $refs.calendar.title }}
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-menu bottom right>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn outlined color="grey darken-2" v-bind="attrs" v-on="on">
+                  <span>{{ typeToLabel[type] }}</span>
+                  <v-icon right>
+                    mdi-menu-down
+                  </v-icon>
+                </v-btn>
+              </template>
+            </v-menu>
+          </v-toolbar>
+        </v-sheet>
+        <v-sheet height="550">
           <v-calendar
             v-model="focus"
+            ref="calendar"
             color="primary"
-            :now='daySelected'
+            :now="daySelected"
             @click:date="displayDialog"
             @click:day="currentSelectedDate"
           >
@@ -70,8 +99,7 @@
                 dark
                 @click="displayDialog"
               >
-                Agrega una cita
-                nueva!
+                Agrega una cita nueva!
                 <v-icon class="mx-2">
                   mdi-calendar-plus
                 </v-icon>
@@ -97,7 +125,7 @@ export default {
   },
   data: () => ({
     dialog: false,
-    index: null, 
+    index: null,
     daySelected: null,
     citas: null,
     calendarDate: null,
@@ -148,10 +176,22 @@ export default {
           Problema: "Dolor de gargante",
         },
         {
-          Nombre: "Berenice Reyes",
+          nombre: "berenice reyes",
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 PM",
-          Problema: "Dolor de gargante",
+          hora: "2:00 pm",
+          problema: "dolor de gargante",
+        },
+        {
+          nombre: "berenice reyes",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          hora: "2:00 pm",
+          problema: "dolor de gargante",
+        },
+        {
+          nombre: "berenice reyes",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          hora: "2:00 pm",
+          problema: "dolor de gargante",
         },
       ],
       "2021-04-29": [
@@ -181,7 +221,7 @@ export default {
           hora: "2:00 PM",
           Problema: "Dolor de gargante",
         },
-      ]
+      ],
     },
     colors: ["#1867c0"],
     category: ["Citas"],
@@ -194,6 +234,12 @@ export default {
     this.calendarDate = this.currentDate();
   },
   methods: {
+    prev() {
+      this.$refs.calendar.prev();
+    },
+    next() {
+      this.$refs.calendar.next();
+    },
     arrayNumber(date) {
       return this.calendario[date].length - 1;
     },
@@ -229,5 +275,10 @@ export default {
 <style scoped>
 #chip {
   height: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
+
 </style>

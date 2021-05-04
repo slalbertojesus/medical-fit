@@ -25,7 +25,7 @@
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon color="white" dark v-bind="attrs" v-on="on">
-                      mdi-pencil
+                      mdi-calendar-heart
                     </v-icon>
                   </template>
                   <span>Editar cita</span>
