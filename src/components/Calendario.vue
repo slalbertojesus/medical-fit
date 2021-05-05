@@ -1,8 +1,5 @@
 <template>
   <v-container>
-    <small>
-      {{selectedDate}}
-    </small>
     <v-row class="fill-height">
       <v-col>
         <v-sheet height="64">
@@ -82,7 +79,7 @@
           <v-row>
             <v-col v-if="calendario[selectedDate] != null">
               <h4 class="justify-center">Citas del día</h4>
-              <CitasDia :citas="calendario[selectedDate]" />
+              <CitasDia :citas="calendario[selectedDate]" :selectedDate="selectedDate"/>
             </v-col>
             <v-row class="my-2" justify="center" v-else>
               <v-btn
@@ -259,7 +256,6 @@ export default {
     },
     displayDialog({ date }) {
       this.selectedDate = date;
-      alert(this.selectedDate);
       this.EditarCitaModal = true;
     },
   },

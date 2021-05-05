@@ -37,28 +37,33 @@
 import { EventBus } from "../event-bus";
 
 export default {
-  mounted() {
-    EventBus.$on("resetVariable", () => {
-      this.timeStep = null;
-      this.timeField = "";
-      this.onScreen = false;
-    });
-  },
   name: "TimePicker",
+  mounted() {
+    this.timeStep = null;
+    this.onScreen = false;
+  },
   data: () => ({
     on: undefined,
     onScreen: false,
     timeStep: null,
-    timeField: null,
+    timeField: "",
     timeSelected: null,
     fromHourDisp: null,
     fromDateMenu: false,
-    timeFieldRules: [
-      v => !!v || 'Debe ingresar la hora de inicio',
-    ],
+    timeFieldRules: [(v) => !!v || "Debe ingresar la hora de inicio"],
   }),
   components: {},
-  props: {},
+  props: {
+    timeInTextField: {
+      type: String,
+      default: "",
+    },
+  },
+  computed: {
+    setTime() {
+      return this.timeInTextField;
+    },
+  },
   methods: {
     triggerTextField() {
       this.timeField = this.timeStep;

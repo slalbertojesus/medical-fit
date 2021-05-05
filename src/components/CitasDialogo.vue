@@ -1,9 +1,6 @@
 <template>
   <v-dialog v-model="show" persistent max-width="600px">
     <v-form ref="form" v-model="valid" lazy-validation>
-      <small>
-        {{selectedDate}}
-      </small>
       <v-card>
         <v-card-title>
           <span class="headline">Agregar cita </span>
@@ -23,7 +20,7 @@
                 <DatePicker :selectedDate="selectedDate" />
               </v-col>
               <v-col cols="12" sm="6" md="6">
-                <TimePicker />
+                <TimePicker v-model="timePicker" :timeInTextField="null" />
               </v-col>
               <v-col cols="12" sm="6" md="6">
                 <div v-if="onScreen">
@@ -59,7 +56,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red darken-1" text @click.stop="show = false"
+          <v-btn color="red darken-1" text @click.stop="close"
             >Cancelar</v-btn
           >
           <v-btn rounded :disabled="!valid" color="primary" @click="validate">
@@ -75,23 +72,15 @@
 import TimePicker from "./TimePicker";
 import DatePicker from "./DatePicker";
 import moment from "moment";
-import { EventBus } from "../event-bus";
 
 export default {
   name: "CitasDialogo",
-  mounted() {
-    EventBus.$on("updateTime", (timeSelected) => {
-      this.timeSelected = timeSelected;
-      this.dateLen = "";
-      this.enddate = "";
-      this.onScreen = true;
-    });
-  },
   data: () => ({
     type: null,
     valid: true,
     onScreen: false,
     enddate: null,
+    timeInTextfield: "",
     timeSelected: null,
     dateOnScreen: false,
     dateEnd: null,
@@ -136,8 +125,9 @@ export default {
   },
   methods: {
     close() {
+      this.show = false;
       this.$refs.form.resetValidation();
-      this.resetVariables();
+      this.$refs.form.reset();
     },
     validate() {
       this.$refs.form.validate();
@@ -151,13 +141,6 @@ export default {
         this.enddate = target.format("H:mm");
         this.dateOnScreen = true;
       }
-    },
-    resetVariables() {
-      this.selectedDate = "";
-      this.dateOnScreen = false;
-      this.onScreen = false;
-      this.enddate = "";
-      this.dateLen = "";
     },
   },
 };

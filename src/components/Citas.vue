@@ -1,6 +1,10 @@
 <template>
   <v-container>
-      <EditarCita :visible="EditarCitaModal" @close="EditarCitaModal=false" selectedDate="selectedDate"  />
+    <small>
+      Fecha
+    {{selectedDate}}
+    </small>
+      <EditarCita :visible="EditarCitaModal" @close="EditarCitaModal=false" :selectedDate="selectedDate"  />
       <v-row no-gutters>
       <v-list-item
         class="justify-center"
@@ -26,7 +30,7 @@
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon class="mr-2" color="white" dark v-bind="attrs" v-on="on"
-                  @click="EditarCitaModal=true" >
+                      @click="EditarCitaModal=true" >
                       mdi-calendar-heart
                     </v-icon>
                   </template>
@@ -71,12 +75,12 @@ export default {
       type: Array[String],
       required: true, 
       default: [],
-    }
+    },
+    selectedDate: null,
   },
   methods: {
   },
   data: () => ({
-    selectedDate: null,
     EditarCitaModal: false, 
   }),
 };
