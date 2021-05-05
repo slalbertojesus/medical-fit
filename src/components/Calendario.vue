@@ -1,5 +1,8 @@
 <template>
   <v-container>
+    <small>
+      {{selectedDate}}
+    </small>
     <v-row class="fill-height">
       <v-col>
         <v-sheet height="64">
@@ -18,16 +21,6 @@
               {{ $refs.calendar.title }}
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-menu bottom right>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn outlined color="grey darken-2" v-bind="attrs" v-on="on">
-                  <span>{{ typeToLabel[type] }}</span>
-                  <v-icon right>
-                    mdi-menu-down
-                  </v-icon>
-                </v-btn>
-              </template>
-            </v-menu>
           </v-toolbar>
         </v-sheet>
         <v-sheet height="550">
@@ -77,7 +70,7 @@
                 right
                 dark
                 color="red"
-                @click="displayDialog"
+                @click="EditarCitaModal=true"
               >
                 <v-icon dark>
                   mdi-plus
@@ -91,13 +84,14 @@
               <h4 class="justify-center">Citas del día</h4>
               <CitasDia :citas="calendario[selectedDate]" />
             </v-col>
-            <v-row class="mt-2" justify="center" v-else>
+            <v-row class="my-2" justify="center" v-else>
               <v-btn
+                class="my-5"
                 x-large
                 outlined
                 color="success"
                 dark
-                @click="displayDialog"
+                @click="EditarCitaModal=true"
               >
                 Agrega una cita nueva!
                 <v-icon class="mx-2">
@@ -107,7 +101,7 @@
             </v-row>
           </v-row>
         </v-sheet>
-        <CitasDialogo :selectedDate="selectedDate" :dialog.sync="dialog" />
+        <CitasDialogo :visible="EditarCitaModal" @close="EditarCitaModal=false" :selectedDate="selectedDate" />
       </v-col>
     </v-row>
   </v-container>
@@ -124,13 +118,12 @@ export default {
     CitasDia,
   },
   data: () => ({
-    dialog: false,
-    index: null,
     daySelected: null,
     citas: null,
     calendarDate: null,
     selectedDate: null,
     createEvent: null,
+    EditarCitaModal: false,
     calendario: {
       "2021-04-04": [
         {
@@ -266,7 +259,8 @@ export default {
     },
     displayDialog({ date }) {
       this.selectedDate = date;
-      this.dialog = true;
+      alert(this.selectedDate);
+      this.EditarCitaModal = true;
     },
   },
 };
@@ -280,5 +274,4 @@ export default {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-
 </style>

@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <v-row no-gutters>
+      <EditarCita :visible="EditarCitaModal" @close="EditarCitaModal=false" selectedDate="selectedDate"  />
+      <v-row no-gutters>
       <v-list-item
         class="justify-center"
         v-for="chat in citas"
@@ -24,7 +25,8 @@
                 }}</v-list-item-title>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="white" dark v-bind="attrs" v-on="on">
+                    <v-icon class="mr-2" color="white" dark v-bind="attrs" v-on="on"
+                  @click="EditarCitaModal=true" >
                       mdi-calendar-heart
                     </v-icon>
                   </template>
@@ -32,7 +34,7 @@
                 </v-tooltip>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="white" dark v-bind="attrs" v-on="on">
+                    <v-icon class="mr-2" color="white" dark v-bind="attrs" v-on="on">
                       mdi-history
                     </v-icon>
                   </template>
@@ -40,7 +42,7 @@
                 </v-tooltip>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="white" dark v-bind="attrs" v-on="on">
+                    <v-icon class="mr-2" color="white" dark v-bind="attrs" v-on="on">
                       mdi-trash-can-outline
                     </v-icon>
                   </template>
@@ -56,14 +58,13 @@
 </template>
 
 <script>
-import { EventBus } from "../event-bus";
+import EditarCita from "./CitasDialogo";
 
 export default {
   mounted() {
-    EventBus.$on("getCitas", (selectedDate) => {
-      this.citas = selectedDate;
-      alert("llegó aquí");
-    });
+  },
+  components: {
+    EditarCita,
   },
   props: {
     citas: {
@@ -76,23 +77,7 @@ export default {
   },
   data: () => ({
     selectedDate: null,
+    EditarCitaModal: false, 
   }),
 };
 </script>
-
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
