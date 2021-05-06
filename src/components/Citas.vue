@@ -1,14 +1,10 @@
 <template>
   <v-container>
-    <small>
-      Fecha
-    {{selectedDate}}
-    </small>
-      <EditarCita :visible="EditarCitaModal" @close="EditarCitaModal=false" :selectedDate="selectedDate"  />
+      <EditarCita :visible="EditarCitaModal" @close="EditarCitaModal=false" :cita="citas[id]" :type="type" :selectedDate="selectedDate"  />
       <v-row no-gutters>
       <v-list-item
         class="justify-center"
-        v-for="chat in citas"
+        v-for="(chat, index) in citas"
         :key="chat.title"
       >
         <v-row class="mx-4 ma-2" no-gutters>
@@ -30,7 +26,7 @@
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon class="mr-2" color="white" dark v-bind="attrs" v-on="on"
-                      @click="EditarCitaModal=true" >
+                      @click="openDialog(index)" >
                       mdi-calendar-heart
                     </v-icon>
                   </template>
@@ -66,6 +62,7 @@ import EditarCita from "./CitasDialogo";
 
 export default {
   mounted() {
+    
   },
   components: {
     EditarCita,
@@ -79,8 +76,14 @@ export default {
     selectedDate: null,
   },
   methods: {
+    openDialog(id){
+      this.id = id; 
+      this.EditarCitaModal = true;
+    }
   },
   data: () => ({
+    id: null, 
+    type: "EDITAR", 
     EditarCitaModal: false, 
   }),
 };

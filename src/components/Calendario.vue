@@ -67,7 +67,7 @@
                 right
                 dark
                 color="red"
-                @click="EditarCitaModal=true"
+                @click="EditarCitaModal = true"
               >
                 <v-icon dark>
                   mdi-plus
@@ -79,26 +79,40 @@
           <v-row>
             <v-col v-if="calendario[selectedDate] != null">
               <h4 class="justify-center">Citas del día</h4>
-              <CitasDia :citas="calendario[selectedDate]" :selectedDate="selectedDate"/>
+              <CitasDia
+                :citas="calendario[selectedDate]"
+                :selectedDate="selectedDate"
+              />
             </v-col>
-            <v-row class="my-2" justify="center" v-else>
-              <v-btn
-                class="my-5"
-                x-large
-                outlined
-                color="success"
-                dark
-                @click="EditarCitaModal=true"
-              >
-                Agrega una cita nueva!
-                <v-icon class="mx-2">
-                  mdi-calendar-plus
-                </v-icon>
-              </v-btn>
+            <v-row class="my-2" justify="center" align="center" v-else>
+              <v-col cols="4">
+                <p class="my-5 font-weight-black text-no-wrap">
+                  No se encontró ninguna cita registrada.
+                </p>
+                <v-row>
+                  <v-btn
+                    class="my-2"
+                    x-large
+                    outlined
+                    color="success"
+                    dark
+                    @click="EditarCitaModal = true"
+                  >
+                    Agrega una cita nueva!
+                    <v-icon class="mx-2">
+                      mdi-calendar-plus
+                    </v-icon>
+                  </v-btn>
+                </v-row>
+              </v-col>
             </v-row>
           </v-row>
         </v-sheet>
-        <CitasDialogo :visible="EditarCitaModal" @close="EditarCitaModal=false" :selectedDate="selectedDate" />
+        <CitasDialogo
+          :visible="EditarCitaModal"
+          @close="EditarCitaModal = false"
+          :selectedDate="selectedDate"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -124,12 +138,14 @@ export default {
     calendario: {
       "2021-04-04": [
         {
+          id: 1,
           Nombre: "Gibran Posiot",
           avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
           hora: "11:00 AM",
           Problema: "Dolor de gargante",
         },
         {
+          id: 2,
           Nombre: "Gibran Posiot",
           avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
           hora: "11:00 AM",
@@ -138,12 +154,14 @@ export default {
       ],
       "2021-04-09": [
         {
+          id: 3,
           Nombre: "Alberto de Jesús",
           avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
           hora: "10:00 AM",
           Problema: "Dolor de gargante",
         },
         {
+          id: 4,
           Nombre: "Monica Rivera",
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
           hora: "2:00 PM",
@@ -152,6 +170,7 @@ export default {
       ],
       "2021-04-10": [
         {
+          id: 5,
           Nombre: "Berenice Reyes",
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
           hora: "2:00 PM",
@@ -160,25 +179,29 @@ export default {
       ],
       "2021-04-11": [
         {
+          id: 6,
           Nombre: "Berenice Reyes",
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
           hora: "2:00 PM",
           Problema: "Dolor de gargante",
         },
         {
-          nombre: "berenice reyes",
+          id: 7,
+          Nombre: "berenice reyes",
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
           hora: "2:00 pm",
           problema: "dolor de gargante",
         },
         {
-          nombre: "berenice reyes",
+          id: 8,
+          Nombre: "berenice reyes",
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
           hora: "2:00 pm",
           problema: "dolor de gargante",
         },
         {
-          nombre: "berenice reyes",
+          id: 9,
+          Nombre: "berenice reyes",
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
           hora: "2:00 pm",
           problema: "dolor de gargante",
@@ -186,12 +209,14 @@ export default {
       ],
       "2021-04-29": [
         {
+          id: 10,
           Nombre: "Berenice Reyes",
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
           hora: "2:00 PM",
           Problema: "Dolor de gargante",
         },
         {
+          id: 11,
           Nombre: "Berenice Reyes",
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
           hora: "2:00 PM",
@@ -200,12 +225,14 @@ export default {
       ],
       "2021-04-30": [
         {
+          id: 12,
           Nombre: "Berenice Reyes",
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
           hora: "2:00 PM",
           Problema: "Dolor de gargante",
         },
         {
+          id: 13,
           Nombre: "Berenice Reyes",
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
           hora: "2:00 PM",

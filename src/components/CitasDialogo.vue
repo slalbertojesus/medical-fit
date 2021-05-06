@@ -3,7 +3,7 @@
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-card>
         <v-card-title>
-          <span class="headline">Agregar cita </span>
+          <span class="headline">{{title}}</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -71,17 +71,27 @@
 <script>
 import TimePicker from "./TimePicker";
 import DatePicker from "./DatePicker";
+import { EventBus } from "../event-bus";
 import moment from "moment";
 
 export default {
   name: "CitasDialogo",
+  mounted() {
+    EventBus.$on("updateTime", (timeSelected) => {
+      this.timeSelected = timeSelected;
+      this.dateLen = "";
+      this.enddate = "";
+      this.onScreen = true;
+    });
+  },
   data: () => ({
-    type: null,
+    title: null,
     valid: true,
     onScreen: false,
     enddate: null,
     timeInTextfield: "",
     timeSelected: null,
+    timePicker: null,
     dateOnScreen: false,
     dateEnd: null,
     paciente: "",
@@ -104,12 +114,30 @@ export default {
     DatePicker,
   },
   props: {
+    type: null,
     visible: {},
     selectedDate: null,
     selectedHour: null,
-    dialog: {
-      default: false,
+    cita: {
+      type: Object, 
+      required: false, 
+      default: null, 
     },
+  },
+  watch: {
+    show(visible) {
+      if (visible) {
+        if (this.type == "EDITAR"){
+          this.title = "Editar cita"
+          this.dateOnScreen = true;
+          this.onScreen = true; 
+          this.paciente = this.cita.Nombre;
+          this.comentarios = this.cita.Problema;
+        } else {
+          this.title = "Agregar cita"
+        }
+      } 
+    }
   },
   computed: {
     show: {
@@ -126,6 +154,7 @@ export default {
   methods: {
     close() {
       this.show = false;
+      this.resetVariables();
       this.$refs.form.resetValidation();
       this.$refs.form.reset();
     },
@@ -141,6 +170,10 @@ export default {
         this.enddate = target.format("H:mm");
         this.dateOnScreen = true;
       }
+    },
+     resetVariables() {
+      this.dateOnScreen = false;
+      this.onScreen = false;
     },
   },
 };
