@@ -3,7 +3,7 @@
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-card>
         <v-card-title>
-          <span class="headline">{{title}}</span>
+          <span class="headline">{{ title }}</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -33,6 +33,23 @@
                   />
                 </div>
               </v-col>
+              <v-col cols="12" sm="6" md="6">
+                <v-btn dark color="purple">
+                  Reunión en Jitsi Meets
+                  <v-icon class="ma-2" dark>
+                    mdi-camera
+                  </v-icon>
+                </v-btn>
+              </v-col>
+              <v-row align="center" justify="space-around">
+                <v-sheet height="100" width="100">
+                  <vue-jitsi-meet
+                    ref="jitsiRef"
+                    domain="meet.jit.si"
+                    :options="jitsiOptions"
+                  ></vue-jitsi-meet>
+                </v-sheet>
+              </v-row>
               <v-col cols="12">
                 <div v-if="dateOnScreen">
                   <v-text-field
@@ -56,9 +73,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red darken-1" text @click.stop="close"
-            >Cancelar</v-btn
-          >
+          <v-btn color="red darken-1" text @click.stop="close">Cancelar</v-btn>
           <v-btn rounded :disabled="!valid" color="primary" @click="validate">
             Guardar
           </v-btn>
@@ -73,6 +88,7 @@ import TimePicker from "./TimePicker";
 import DatePicker from "./DatePicker";
 import { EventBus } from "../event-bus";
 import moment from "moment";
+import { JitsiMeet } from '@mycure/vue-jitsi-meet';
 
 export default {
   name: "CitasDialogo",
@@ -110,6 +126,7 @@ export default {
     ],
   }),
   components: {
+    VueJitsiMeet: JitsiMeet,
     TimePicker,
     DatePicker,
   },
@@ -119,25 +136,25 @@ export default {
     selectedDate: null,
     selectedHour: null,
     cita: {
-      type: Object, 
-      required: false, 
-      default: null, 
+      type: Object,
+      required: false,
+      default: null,
     },
   },
   watch: {
     show(visible) {
       if (visible) {
-        if (this.type == "EDITAR"){
-          this.title = "Editar cita"
+        if (this.type == "EDITAR") {
+          this.title = "Editar cita";
           this.dateOnScreen = true;
-          this.onScreen = true; 
+          this.onScreen = true;
           this.paciente = this.cita.Nombre;
           this.comentarios = this.cita.Problema;
         } else {
-          this.title = "Agregar cita"
+          this.title = "Agregar cita";
         }
-      } 
-    }
+      }
+    },
   },
   computed: {
     show: {
@@ -171,7 +188,7 @@ export default {
         this.dateOnScreen = true;
       }
     },
-     resetVariables() {
+    resetVariables() {
       this.dateOnScreen = false;
       this.onScreen = false;
     },

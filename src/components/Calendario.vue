@@ -84,28 +84,26 @@
                 :selectedDate="selectedDate"
               />
             </v-col>
-            <v-row class="my-2" justify="center" align="center" v-else>
-              <v-col cols="4">
-                <p class="my-5 font-weight-black text-no-wrap">
-                  No se encontró ninguna cita registrada.
-                </p>
-                <v-row>
-                  <v-btn
-                    class="my-2"
-                    x-large
-                    outlined
-                    color="success"
-                    dark
-                    @click="EditarCitaModal = true"
-                  >
-                    Agrega una cita nueva!
-                    <v-icon class="mx-2">
-                      mdi-calendar-plus
-                    </v-icon>
-                  </v-btn>
-                </v-row>
-              </v-col>
-            </v-row>
+              <v-row align="center" justify="center">
+                  <v-col>
+                    <p class="my-2 font-weight-black text-no-wrap">
+                      No se encontró ninguna cita registrada.
+                    </p>
+                    <v-btn
+                      class="my-2"
+                      x-large
+                      outlined
+                      color="success"
+                      dark
+                      @click="EditarCitaModal = true"
+                    >
+                      Agrega una cita nueva!
+                      <v-icon class="mx-2">
+                        mdi-calendar-plus
+                      </v-icon>
+                    </v-btn>
+                </v-col>
+              </v-row>
           </v-row>
         </v-sheet>
         <CitasDialogo
