@@ -1,7 +1,13 @@
 <template>
   <v-container>
-      <EditarCita :visible="EditarCitaModal" @close="EditarCitaModal=false" :cita="citas[id]" :type="type" :selectedDate="selectedDate"  />
-      <v-row no-gutters>
+    <EditarCita
+      :visible="EditarCitaModal"
+      @close="EditarCitaModal = false"
+      :cita="citas[id]"
+      :type="type"
+      :selectedDate="selectedDate"
+    />
+    <v-row no-gutters>
       <v-list-item
         class="justify-center"
         v-for="(chat, index) in citas"
@@ -25,8 +31,14 @@
                 }}</v-list-item-title>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon class="mr-2" color="white" dark v-bind="attrs" v-on="on"
-                      @click="openDialog(index)" >
+                    <v-icon
+                      class="mr-2"
+                      color="white"
+                      dark
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="openDialog(index)"
+                    >
                       mdi-calendar-heart
                     </v-icon>
                   </template>
@@ -34,7 +46,13 @@
                 </v-tooltip>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon class="mr-2" color="white" dark v-bind="attrs" v-on="on">
+                    <v-icon
+                      class="mr-2"
+                      color="white"
+                      dark
+                      v-bind="attrs"
+                      v-on="on"
+                    >
                       mdi-history
                     </v-icon>
                   </template>
@@ -42,7 +60,13 @@
                 </v-tooltip>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon class="mr-2" color="white" dark v-bind="attrs" v-on="on">
+                    <v-icon
+                      class="mr-2"
+                      color="white"
+                      dark
+                      v-bind="attrs"
+                      v-on="on"
+                    >
                       mdi-trash-can-outline
                     </v-icon>
                   </template>
@@ -61,30 +85,28 @@
 import EditarCita from "./CitasDialogo";
 
 export default {
-  mounted() {
-    
-  },
+  mounted() {},
   components: {
-    EditarCita,
+    EditarCita
   },
   props: {
     citas: {
       type: Array[String],
-      required: true, 
-      default: [],
+      required: true,
+      default: []
     },
-    selectedDate: null,
+    selectedDate: null
   },
   methods: {
-    openDialog(id){
-      this.id = id; 
+    openDialog(id) {
+      this.id = id;
       this.EditarCitaModal = true;
     }
   },
   data: () => ({
-    id: null, 
-    type: "EDITAR", 
-    EditarCitaModal: false, 
-  }),
+    id: null,
+    type: "EDITAR",
+    EditarCitaModal: false
+  })
 };
 </script>

@@ -42,7 +42,7 @@
                 </v-btn>
               </v-col>
               <v-row align="center" justify="space-around">
-                <v-sheet height="100" width="100">
+                <v-sheet height="400" width="400">
                   <vue-jitsi-meet
                     ref="jitsiRef"
                     domain="meet.jit.si"
@@ -88,12 +88,12 @@ import TimePicker from "./TimePicker";
 import DatePicker from "./DatePicker";
 import { EventBus } from "../event-bus";
 import moment from "moment";
-import { JitsiMeet } from '@mycure/vue-jitsi-meet';
+import { JitsiMeet } from "@mycure/vue-jitsi-meet";
 
 export default {
   name: "CitasDialogo",
   mounted() {
-    EventBus.$on("updateTime", (timeSelected) => {
+    EventBus.$on("updateTime", timeSelected => {
       this.timeSelected = timeSelected;
       this.dateLen = "";
       this.enddate = "";
@@ -111,24 +111,24 @@ export default {
     dateOnScreen: false,
     dateEnd: null,
     paciente: "",
-    pacienteRules: [(v) => !!v || "Debe ingresar un paciente"],
+    pacienteRules: [v => !!v || "Debe ingresar un paciente"],
     comentarios: null,
     comentariosRules: [
-      (v) =>
+      v =>
         (v || "").length <= 600 ||
-        "Los comentarios deben contener menos de 600 caracteres",
+        "Los comentarios deben contener menos de 600 caracteres"
     ],
     dateLen: null,
     dateLenRules: [
-      (v) => v.length > 0 || "Debe ingresar los minutos de duración",
-      (v) => Number.isInteger(Number(v)) || "Debe ser un entero",
-      (v) => v > 10 || "La duración debe ser mayor a 10 minutos",
-    ],
+      v => v.length > 0 || "Debe ingresar los minutos de duración",
+      v => Number.isInteger(Number(v)) || "Debe ser un entero",
+      v => v > 10 || "La duración debe ser mayor a 10 minutos"
+    ]
   }),
   components: {
     VueJitsiMeet: JitsiMeet,
     TimePicker,
-    DatePicker,
+    DatePicker
   },
   props: {
     type: null,
@@ -138,8 +138,8 @@ export default {
     cita: {
       type: Object,
       required: false,
-      default: null,
-    },
+      default: null
+    }
   },
   watch: {
     show(visible) {
@@ -154,7 +154,7 @@ export default {
           this.title = "Agregar cita";
         }
       }
-    },
+    }
   },
   computed: {
     show: {
@@ -165,8 +165,8 @@ export default {
         if (!value) {
           this.$emit("close");
         }
-      },
-    },
+      }
+    }
   },
   methods: {
     close() {
@@ -191,7 +191,7 @@ export default {
     resetVariables() {
       this.dateOnScreen = false;
       this.onScreen = false;
-    },
-  },
+    }
+  }
 };
 </script>
