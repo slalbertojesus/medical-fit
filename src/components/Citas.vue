@@ -30,7 +30,7 @@
                 <v-list-item-title class="white--text">
                   {{ responsiveName(chat.Nombre) }}
                 </v-list-item-title>
-                <JitsiButton :name="chat.Nombre" />
+                <JitsiButton v-if="displayJitsiMeets(selectedDate)" :name="chat.Nombre" />
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon
@@ -112,7 +112,6 @@ export default {
     displayJitsiMeets(selectedDate) {
       selectedDate = selectedDate+ "T00:00:00";
       var date = new Date(selectedDate);
-      console.log(date);
       const today = new Date();
       return (
         date.getDate() == today.getDate() &&

@@ -238,6 +238,22 @@ export default {
           Problema: "Dolor de gargante",
         },
       ],
+      "2021-05-13": [
+        {
+          id: 17,
+          Nombre: "Paul Robin",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          hora: "2:00 PM",
+          Problema: "Dolor de gargante",
+        },
+        {
+          id: 18,
+          Nombre: "Robin Hood",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          hora: "2:00 PM",
+          Problema: "Dolor de gargante",
+        },
+      ],
       "2021-05-12": [
         {
           id: 16,
