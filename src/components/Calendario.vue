@@ -57,8 +57,11 @@
             </template>
           </v-calendar>
           <v-row>
-          <h3 class="mt-3">{{ calendarDate }}</h3>
-            <v-col  v-if="this.calendario[selectedDate] != null" class="text-right">
+            <h3 class="mt-3">{{ calendarDate }}</h3>
+            <v-col
+              v-if="this.calendario[selectedDate] != null"
+              class="text-right"
+            >
               <v-btn fab right dark color="red" @click="EditarCitaModal = true">
                 <v-icon dark>
                   mdi-plus
@@ -67,13 +70,14 @@
             </v-col>
           </v-row>
           <v-row v-if="this.calendario[selectedDate] != null">
-              <CitasDia
-               :citas="calendario[selectedDate]"
-               :selectedDate="selectedDate"
-              />
+            <CitasDia
+              :citas="calendario[selectedDate]"
+              :selectedDate="selectedDate"
+            />
           </v-row>
-          <v-row v-else>
-            <v-col :cols="12" :md="6">
+          <v-container class="ma-5" v-else>
+            <v-row justify="center">
+              <v-col cols="12" sm="4">
               <p class="my-2 font-weight-black text-no-wrap">
                 No se encontró ninguna cita registrada.
               </p>
@@ -90,8 +94,9 @@
                   mdi-calendar-plus
                 </v-icon>
               </v-btn>
-            </v-col>
-          </v-row>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-sheet>
         <CitasDialogo
           :visible="EditarCitaModal"
