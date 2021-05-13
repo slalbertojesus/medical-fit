@@ -41,15 +41,6 @@
                   </v-icon>
                 </v-btn>
               </v-col>
-              <v-row align="center" justify="space-around">
-                <v-sheet height="400" width="400">
-                  <vue-jitsi-meet
-                    ref="jitsiRef"
-                    domain="meet.jit.si"
-                    :options="jitsiOptions"
-                  ></vue-jitsi-meet>
-                </v-sheet>
-              </v-row>
               <v-col cols="12">
                 <div v-if="dateOnScreen">
                   <v-text-field
@@ -88,7 +79,6 @@ import TimePicker from "./TimePicker";
 import DatePicker from "./DatePicker";
 import { EventBus } from "../event-bus";
 import moment from "moment";
-import { JitsiMeet } from "@mycure/vue-jitsi-meet";
 
 export default {
   name: "CitasDialogo",
@@ -126,7 +116,6 @@ export default {
     ]
   }),
   components: {
-    VueJitsiMeet: JitsiMeet,
     TimePicker,
     DatePicker
   },

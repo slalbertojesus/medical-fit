@@ -7,13 +7,14 @@
       :type="type"
       :selectedDate="selectedDate"
     />
-    <v-row no-gutters>
+    <v-row no-gutters >
+      <h4 class="justify-center">Citas del día</h4>
       <v-list-item
         class="justify-center"
         v-for="(chat, index) in citas"
         :key="chat.title"
       >
-        <v-row class="mx-4 ma-2" no-gutters>
+        <v-row class="mx-4 ma-2" align="center" no-gutters>
           <v-col cols="3" md="2">
             <small>{{ chat.hora }}</small>
           </v-col>
@@ -26,9 +27,10 @@
                     :src="chat.avatar"
                   ></v-img>
                 </v-list-item-avatar>
-                <v-list-item-title class="white--text">{{
-                  chat.Nombre
-                }}</v-list-item-title>
+                <v-list-item-title class="white--text">
+                  {{ responsiveName(chat.Nombre) }}
+                </v-list-item-title>
+                <JitsiButton :name="chat.Nombre" />
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon
@@ -83,30 +85,54 @@
 
 <script>
 import EditarCita from "./CitasDialogo";
+import JitsiButton from "./JitsiButton";
 
 export default {
   mounted() {},
   components: {
-    EditarCita
+    EditarCita,
+    JitsiButton
   },
   props: {
     citas: {
       type: Array[String],
       required: true,
-      default: []
+      default: [],
     },
-    selectedDate: null
+    selectedDate: null,
   },
   methods: {
+    responsiveName(name){
+      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm){
+        let firstWord = name.split(" ")[0]
+        return firstWord; 
+      }
+      return name;
+    },
+    displayJitsiMeets(selectedDate) {
+      selectedDate = selectedDate+ "T00:00:00";
+      var date = new Date(selectedDate);
+      console.log(date);
+      const today = new Date();
+      return (
+        date.getDate() == today.getDate() &&
+        date.getMonth() == today.getMonth() &&
+        date.getFullYear() == today.getFullYear()
+      );
+    },
     openDialog(id) {
       this.id = id;
       this.EditarCitaModal = true;
-    }
+    },
   },
   data: () => ({
     id: null,
     type: "EDITAR",
-    EditarCitaModal: false
-  })
+    EditarCitaModal: false,
+  }),
 };
 </script>
+
+<style scoped>
+
+</style>
