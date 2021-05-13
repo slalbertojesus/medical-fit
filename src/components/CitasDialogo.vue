@@ -33,14 +33,6 @@
                   />
                 </div>
               </v-col>
-              <v-col cols="12" sm="6" md="6">
-                <v-btn dark color="purple">
-                  Reunión en Jitsi Meets
-                  <v-icon class="ma-2" dark>
-                    mdi-camera
-                  </v-icon>
-                </v-btn>
-              </v-col>
               <v-col cols="12">
                 <div v-if="dateOnScreen">
                   <v-text-field

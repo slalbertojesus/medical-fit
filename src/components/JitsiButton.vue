@@ -9,7 +9,7 @@
         v-on="on"
         @click="iniciarVideollamada"
       >
-        mdi-camera
+        mdi-video
       </v-icon>
     </template>
     <span>Iniciar videollamada</span>
@@ -21,14 +21,28 @@
           mdi-close
         </v-icon>
         <v-icon class="mr-3" color="white" v-else>
-          mdi-camera-account
+          mdi-video-minus-outline
         </v-icon>
       </template>
-      <v-btn fab small > 
-      <whats-app :url="this.link" title="Haz sido agregado a una cita nueva en Medical Fit" scale="3"></whats-app>
+      <v-btn color="green" fab small>
+        <ShareNetwork
+          network="whatsapp"
+          :url="this.link"
+          :title="title"
+          :description="description"
+        >
+          <v-icon color="white">mdi-whatsapp</v-icon>
+        </ShareNetwork>
       </v-btn>
-      <v-btn fab small >
-        <email :url="this.link" subject="Haz sido agregado a una cita nueva en Medical Fit" scale="3"></email>
+      <v-btn color="red" fab small>
+        <ShareNetwork
+          network="email"
+          :url="this.link"
+          :title="title"
+          :description="description"
+        >
+          <v-icon color="white">mdi-email</v-icon>
+        </ShareNetwork>
       </v-btn>
       <v-btn fab dark small color="indigo" @click="copyLink">
         <v-icon>mdi-content-copy</v-icon>
@@ -44,8 +58,6 @@
 </template>
 
 <script>
-import { WhatsApp, Email } from "vue-socialmedia-share";
-
 export default {
   mounted() {
     let recaptchaScript = document.createElement("script");
@@ -73,8 +85,8 @@ export default {
     },
     iniciarVideollamada() {
       this.selected = true;
-      let primerNombre = this.name.split(" ")[0]
-      const hash = this.hashCode(primerNombre)
+      let primerNombre = this.name.split(" ")[0];
+      const hash = this.hashCode(primerNombre);
       const room = "Cita" + primerNombre + hash;
       const domain = "meet.jit.si";
       const options = {
@@ -89,10 +101,7 @@ export default {
       }
     },
   },
-  components: {
-    Email, 
-    WhatsApp,
-  },
+  components: {},
   props: {
     name: {
       type: String,
@@ -105,6 +114,9 @@ export default {
     domain: null,
     fab: null,
     snackbar: false,
+    title:
+      "Hola le han invitado a una reunión en JitsiMeets 💊.",
+    description: "¡Que tengas un excelente día! ☀️.",
   }),
 };
 </script>

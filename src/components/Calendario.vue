@@ -56,22 +56,24 @@
               </div>
             </template>
           </v-calendar>
+          <v-row>
           <h3 class="mt-3">{{ calendarDate }}</h3>
-          <v-row v-if="this.calendario[selectedDate] != null">
-            <v-col class="text-right">
+            <v-col  v-if="this.calendario[selectedDate] != null" class="text-right">
               <v-btn fab right dark color="red" @click="EditarCitaModal = true">
                 <v-icon dark>
                   mdi-plus
                 </v-icon>
               </v-btn>
             </v-col>
+          </v-row>
+          <v-row v-if="this.calendario[selectedDate] != null">
               <CitasDia
-                :citas="calendario[selectedDate]"
-                :selectedDate="selectedDate"
+               :citas="calendario[selectedDate]"
+               :selectedDate="selectedDate"
               />
           </v-row>
-          <v-row align="center" justify="center" v-else>
-            <v-col>
+          <v-row v-else>
+            <v-col :cols="12" :md="6">
               <p class="my-2 font-weight-black text-no-wrap">
                 No se encontró ninguna cita registrada.
               </p>
@@ -120,13 +122,6 @@ export default {
     EditarCitaModal: false,
     calendario: {
       "2021-04-04": [
-        {
-          id: 1,
-          Nombre: "Gibran Posiot",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-          hora: "11:00 AM",
-          Problema: "Dolor de gargante",
-        },
         {
           id: 2,
           Nombre: "Gibran Posiot",
