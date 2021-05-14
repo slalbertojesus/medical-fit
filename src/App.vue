@@ -1,19 +1,19 @@
 <template>
   <v-app>
     <v-main>
-      <calendario/>
+      <Agenda/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Calendario from './components/Calendario';
+import Agenda from './components/Agenda';
 
 export default {
   name: 'App',
 
   components: {
-    Calendario
+   Agenda 
   },
 
   data: () => ({

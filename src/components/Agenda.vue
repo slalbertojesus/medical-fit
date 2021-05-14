@@ -31,28 +31,30 @@
           >
             <template v-slot:day="{ date }">
               <div v-for="(cita, index) in calendario[date]" :key="cita.Nombre">
-                <v-chip
-                  id="chip"
-                  v-if="index < 2"
-                  v-model="citas"
-                  :title="category[0]"
-                  color="primary"
-                  rounded
-                >
-                  <div v-if="index == 0">
-                    <small class="white--text justify-center">
-                      {{ cita.Nombre }}
-                    </small>
-                    <v-icon small class="mx-1" color="white">
-                      mdi-calendar
-                    </v-icon>
-                  </div>
-                  <div v-else-if="index == 1">
-                    <small class="white--text justify-center">
-                      {{ arrayNumber(date) }} citas más
-                    </small>
-                  </div>
-                </v-chip>
+                <v-hover>
+                  <v-chip
+                    id="chip"
+                    v-if="index < 2"
+                    v-model="citas"
+                    :title="category[0]"
+                    color="primary"
+                    rounded
+                  >
+                    <div v-if="index == 0">
+                      <small class="white--text justify-center">
+                        {{ cita.Nombre }}
+                      </small>
+                      <v-icon small class="mx-1" color="white">
+                        mdi-calendar
+                      </v-icon>
+                    </div>
+                    <div v-else-if="index == 1">
+                      <small class="white--text justify-center">
+                        {{ arrayNumber(date) }} citas más
+                      </small>
+                    </div>
+                  </v-chip>
+                </v-hover>
               </div>
             </template>
           </v-calendar>
@@ -78,22 +80,22 @@
           <v-container class="ma-5" v-else>
             <v-row justify="center">
               <v-col cols="12" sm="4">
-              <p class="my-2 font-weight-black text-no-wrap">
-                No se encontró ninguna cita registrada.
-              </p>
-              <v-btn
-                class="my-2"
-                x-large
-                outlined
-                color="success"
-                dark
-                @click="EditarCitaModal = true"
-              >
-                Agrega una cita nueva!
-                <v-icon class="mx-2">
-                  mdi-calendar-plus
-                </v-icon>
-              </v-btn>
+                <p class="my-2 font-weight-black text-no-wrap">
+                  No se encontró ninguna cita registrada.
+                </p>
+                <v-btn
+                  class="my-2"
+                  x-large
+                  outlined
+                  color="success"
+                  dark
+                  @click="EditarCitaModal = true"
+                >
+                  Agrega una cita nueva!
+                  <v-icon class="mx-2">
+                    mdi-calendar-plus
+                  </v-icon>
+                </v-btn>
               </v-col>
             </v-row>
           </v-container>
@@ -325,7 +327,7 @@ export default {
   height: 20px;
   display: flex;
   justify-content: center;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 1px;
+  margin-bottom: 2px;
 }
 </style>
