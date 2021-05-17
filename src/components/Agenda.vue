@@ -126,134 +126,6 @@ export default {
     createEvent: null,
     EditarCitaModal: false,
     calendario: {
-      "2021-04-04": [
-        {
-          id: 2,
-          Nombre: "Gibran Posiot",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-          hora: "11:00 AM",
-          Problema: "Dolor de gargante",
-        },
-      ],
-      "2021-04-09": [
-        {
-          id: 3,
-          Nombre: "Alberto de Jesús",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-          hora: "10:00 AM",
-          Problema: "Dolor de gargante",
-        },
-        {
-          id: 4,
-          Nombre: "Monica Rivera",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 PM",
-          Problema: "Dolor de gargante",
-        },
-      ],
-      "2021-04-10": [
-        {
-          id: 5,
-          Nombre: "Un usuario loco",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 PM",
-          Problema: "Dolor de gargante",
-        },
-      ],
-      "2021-04-11": [
-        {
-          id: 6,
-          Nombre: "Perón",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 PM",
-          Problema: "Dolor de gargante",
-        },
-        {
-          id: 7,
-          Nombre: "Roberto Palacios",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 pm",
-          problema: "dolor de gargante",
-        },
-        {
-          id: 8,
-          Nombre: "Yukio Mishima",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 pm",
-          problema: "dolor de gargante",
-        },
-        {
-          id: 9,
-          Nombre: "Miguel Hernández",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 pm",
-          problema: "dolor de gargante",
-        },
-      ],
-      "2021-04-29": [
-        {
-          id: 10,
-          Nombre: "Rossana López",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 PM",
-          Problema: "Dolor de gargante",
-        },
-        {
-          id: 11,
-          Nombre: "Alberto Sánchez",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 PM",
-          Problema: "Dolor de gargante",
-        },
-      ],
-      "2021-04-30": [
-        {
-          id: 12,
-          Nombre: "Guadalupe Lopez",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 PM",
-          Problema: "Dolor de gargante",
-        },
-        {
-          id: 13,
-          Nombre: "Isabella Sánchez",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 PM",
-          Problema: "Dolor de gargante",
-        },
-      ],
-      "2021-05-11": [
-        {
-          id: 14,
-          Nombre: "Roberto Rodriguez",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 PM",
-          Problema: "Dolor de gargante",
-        },
-        {
-          id: 15,
-          Nombre: "San Jousin",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 PM",
-          Problema: "Dolor de gargante",
-        },
-      ],
-      "2021-05-13": [
-        {
-          id: 17,
-          Nombre: "Paul Robin",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 PM",
-          Problema: "Dolor de gargante",
-        },
-        {
-          id: 18,
-          Nombre: "Robin Hood",
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          hora: "2:00 PM",
-          Problema: "Dolor de gargante",
-        },
-      ],
       "2021-05-12": [
         {
           id: 16,
@@ -265,6 +137,22 @@ export default {
         {
           id: 17,
           Nombre: "Nasin Taleb",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          hora: "2:00 PM",
+          Problema: "Dolor de gargante",
+        },
+      ],
+      "2021-05-17": [
+        {
+          id: 19,
+          Nombre: "Yes Custoe",
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          hora: "2:00 PM",
+          Problema: "Dolor de gargante",
+        },
+        {
+          id: 18,
+          Nombre: "Obama Taleb",
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
           hora: "2:00 PM",
           Problema: "Dolor de gargante",

@@ -97,7 +97,7 @@ export default {
       try {
         window.JitsiMeetExternalAPI(domain, options);
       } catch (err) {
-        console.log("Pasó un error, pero se creó la ventana");
+        this.$log.info('Creó instancia de JitsiMeets, no se desplegó, método manda un error por default. IGNORAR', this.err)
       }
     },
   },
@@ -115,7 +115,7 @@ export default {
     fab: null,
     snackbar: false,
     title:
-      "Hola le han invitado a una reunión en JitsiMeets 💊.",
+      "Hola, le han invitado a una reunión en JitsiMeets 💊.",
     description: "¡Que tengas un excelente día! ☀️.",
   }),
 };

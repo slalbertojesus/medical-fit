@@ -15,6 +15,7 @@
     "vue-mq": "^1.0.1",
     "vue-social-sharing": "^3.0.7",
     "vue-socialmedia-share": "^1.0.1",
+    "vuejs-logger": "^1.5.5",
     "vuetify": "^2.4.9"
   },
   "devDependencies": {
