@@ -100,7 +100,7 @@ export default {
         (v || "").length <= 600 ||
         "Los comentarios deben contener menos de 600 caracteres"
     ],
-    dateLen: null,
+    dateLen: 0,
     dateLenRules: [
       v => v.length > 0 || "Debe ingresar los minutos de duración",
       v => Number.isInteger(Number(v)) || "Debe ser un entero",
@@ -127,6 +127,7 @@ export default {
       if (visible) {
         if (this.type == "EDITAR") {
           this.title = "Editar cita";
+          this.dateLen = 0;
           this.dateOnScreen = true;
           this.onScreen = true;
           this.paciente = this.cita.Nombre;

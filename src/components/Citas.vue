@@ -7,7 +7,8 @@
       :type="type"
       :selectedDate="selectedDate"
     />
-    <v-row no-gutters >
+    <Historial :cita="citas[id]" :visible="HistorialModal" @close="HistorialModal = false" />
+    <v-row no-gutters>
       <h4 class="justify-center">Citas del día</h4>
       <v-list-item
         class="justify-center"
@@ -30,7 +31,10 @@
                 <v-list-item-title class="white--text">
                   {{ responsiveName(chat.Nombre) }}
                 </v-list-item-title>
-                <JitsiButton v-if="displayJitsiMeets(selectedDate)" :name="chat.Nombre" />
+                <JitsiButton
+                  v-if="displayJitsiMeets(selectedDate)"
+                  :name="chat.Nombre"
+                />
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon
@@ -54,6 +58,7 @@
                       dark
                       v-bind="attrs"
                       v-on="on"
+                      @click="openHistory(index)"
                     >
                       mdi-history
                     </v-icon>
@@ -86,12 +91,14 @@
 <script>
 import EditarCita from "./CitasDialogo";
 import JitsiButton from "./JitsiButton";
+import Historial from "./HistorialMedicoDialogo";
 
 export default {
   mounted() {},
   components: {
     EditarCita,
-    JitsiButton
+    JitsiButton,
+    Historial,
   },
   props: {
     citas: {
@@ -102,15 +109,15 @@ export default {
     selectedDate: null,
   },
   methods: {
-    responsiveName(name){
-      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm){
-        let firstWord = name.split(" ")[0]
-        return firstWord; 
+    responsiveName(name) {
+      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
+        let firstWord = name.split(" ")[0];
+        return firstWord;
       }
       return name;
     },
     displayJitsiMeets(selectedDate) {
-      selectedDate = selectedDate+ "T00:00:00";
+      selectedDate = selectedDate + "T00:00:00";
       var date = new Date(selectedDate);
       const today = new Date();
       return (
@@ -123,15 +130,18 @@ export default {
       this.id = id;
       this.EditarCitaModal = true;
     },
+    openHistory(id) {
+      this.id =id;
+      this.HistorialModal = true;
+    },
   },
   data: () => ({
     id: null,
     type: "EDITAR",
+    HistorialModal: false,
     EditarCitaModal: false,
   }),
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

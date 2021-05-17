@@ -31,7 +31,6 @@
           >
             <template v-slot:day="{ date }">
               <div v-for="(cita, index) in calendario[date]" :key="cita.Nombre">
-                <v-hover>
                   <v-chip
                     id="chip"
                     v-if="index < 2"
@@ -54,7 +53,6 @@
                       </small>
                     </div>
                   </v-chip>
-                </v-hover>
               </div>
             </template>
           </v-calendar>
